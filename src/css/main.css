@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-dark text-light font-sans;
+    background-image: radial-gradient(circle at center, #222 0%, #121212 100%);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-glow {
+    @apply relative overflow-hidden bg-gradient-to-r from-primary to-secondary 
+           text-dark font-bold py-3 px-6 rounded-full transition-all duration-300
+           hover:shadow-[0_0_25px_rgba(255,255,255,0.8)] hover:scale-105;
+  }
+  
+  .glass-panel {
+    @apply bg-neutral bg-opacity-70 backdrop-blur-lg rounded-2xl p-6 border border-white border-opacity-10 shadow-glass;
+  }
+  
+  .section-heading {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-secondary 
+           text-transparent bg-clip-text mb-8;
+  }
+  
+  .nav-link {
+    @apply relative text-light text-opacity-80 hover:text-light transition-colors duration-300 text-lg
+           after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-primary 
+           after:left-0 after:bottom-[-5px] after:transition-all after:duration-300
+           hover:after:w-full;
+  }
+  
+  .nav-link.active {
+    @apply text-light after:w-full;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
+
+/* Custom fonts */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('/assets/fonts/SF-Pro-Display-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('/assets/fonts/SF-Pro-Display-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
