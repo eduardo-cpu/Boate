@@ -15,6 +15,8 @@ Um site elegante e moderno para uma boate de alto padrão, inspirado no design m
 - **Animações Suaves**: Transições e efeitos visuais refinados usando Framer Motion
 - **Carregamento Otimizado**: Tempos de carregamento rápidos graças ao Vite e código otimizado
 - **Seções Completas**: Home, Eventos, Galeria, VIP e Contato com funcionalidades detalhadas
+- **Performance Otimizada**: Código limpo e eficiente para garantir velocidade e responsividade
+- **SEO Amigável**: Estrutura e metadados otimizados para mecanismos de busca
 
 ## 🚀 Tecnologias
 
@@ -23,8 +25,10 @@ Um site elegante e moderno para uma boate de alto padrão, inspirado no design m
 - **CSS**: Tailwind CSS 3 + PostCSS
 - **Animações**: Framer Motion
 - **Ícones**: React Icons
-- **Componentes**: DaisyUI
 - **Roteamento**: React Router
+- **Formulários**: React Hook Form
+- **Estado**: Zustand (gerenciamento de estado minimalista)
+- **Media**: Keen Slider para carrosséis de imagens
 
 ## 📂 Estrutura do Projeto
 
@@ -34,13 +38,19 @@ luxe-nightclub/
 │   ├── js/             # Arquivos JavaScript/React
 │   │   ├── components/ # Componentes reutilizáveis
 │   │   ├── pages/      # Páginas do site
+│   │   ├── hooks/      # Hooks personalizados
+│   │   ├── contexts/   # Contextos React
+│   │   ├── utils/      # Funções utilitárias
 │   │   ├── App.jsx     # Componente principal
 │   │   └── main.jsx    # Ponto de entrada da aplicação
 │   ├── css/            # Estilos
 │   │   ├── main.css    # Estilos principal com Tailwind
 │   │   └── normalize.css # Reset CSS
 │   └── assets/         # Recursos estáticos
-│       └── fonts/      # Fontes personalizadas
+│       ├── fonts/      # Fontes personalizadas
+│       ├── images/     # Imagens e fotos
+│       ├── videos/     # Vídeos promocionais
+│       └── icons/      # Ícones personalizados
 ├── index.html          # Arquivo HTML raiz
 ├── vite.config.js      # Configuração do Vite
 ├── tailwind.config.js  # Configuração do Tailwind CSS
@@ -75,7 +85,7 @@ npm run dev
 
 4. Acesse o site em:
 ```
-http://localhost:3000
+http://localhost:5173
 ```
 
 ### Compilação para Produção
@@ -87,13 +97,30 @@ npm run build
 
 Os arquivos compilados estarão disponíveis na pasta `dist/`.
 
+### Scripts Disponíveis
+
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Cria uma versão de produção otimizada
+- `npm run preview` - Visualiza a versão de produção localmente
+- `npm run lint` - Executa o linter para verificar a qualidade do código
+
 ## 📱 Páginas Principais
 
 - **Home**: Apresentação da boate com seção hero imersiva e próximos eventos
-- **Eventos**: Lista de eventos futuros com filtro por categoria
-- **Galeria**: Galeria de fotos com visualizador de imagem e filtros
-- **VIP**: Pacotes premium, benefícios e formulário de reserva
-- **Contato**: Formulário de contato e informações
+- **Eventos**: Lista de eventos futuros com filtro por categoria e sistema de busca
+- **Galeria**: Galeria de fotos responsiva com visualizador de imagem e filtros
+- **VIP**: Pacotes premium, benefícios exclusivos e formulário de reserva
+- **Contato**: Formulário de contato, mapa interativo e informações de localização
+
+## 🎨 Design e Experiência do Usuário
+
+O design segue uma abordagem minimalista e luxuosa, com:
+- Paleta de cores escuras com acentos dourados e néon
+- Tipografia premium com fontes personalizadas
+- Animações sutis e transições suaves
+- Interface intuitiva com navegação simplificada
+- Elementos interativos de alta qualidade
+- Tempos de carregamento otimizados
 
 ## 🤝 Contribuição
 
@@ -109,6 +136,13 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 
 Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para obter mais detalhes.
 
+## 📞 Contato e Suporte
+
+Para questões relacionadas ao projeto, entre em contato através:
+- Email: contato@luxenightclub.com
+- Website: https://luxenightclub.com
+- Instagram: @luxenightclub
+
 ---
 
-Desenvolvido com ❤️ por [Seu Nome/Empresa] &copy; 2025
+Desenvolvido com ❤️ por Eduardo Santos © 2025
