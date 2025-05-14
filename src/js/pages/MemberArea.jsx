@@ -1,12 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { QRCodeSVG } from 'react-qr-code';
+import { FaTicketAlt, FaCalendarAlt, FaRegClock, FaMapMarkerAlt, FaDownload, FaUser, FaGlassMartini, FaUserFriends, FaCocktail } from 'react-icons/fa';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { FaGlassMartini, FaTicketAlt, FaUserFriends, FaCocktail, FaCalendarAlt } from 'react-icons/fa';
+import { useNavigate, Link } from 'react-router-dom';
 
 const MemberArea = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('tickets');
+  const [tickets, setTickets] = useState([]);
+  
+  useEffect(() => {
+    // Simulação de dados de ingressos comprados
+    // Em um caso real, isso viria de uma API
+    const mockTickets = [
+      {
+        id: 'LUXE-546-789',
+        eventId: 1,
+        eventTitle: 'Neon Dreams',
+        ticketType: 'Ingresso VIP',
+        date: '12 Mai, 2025',
+        time: '22:00 - 05:00',
+        location: 'LUXE Main Hall',
+        price: 150,
+        purchaseDate: '10 Mai, 2025',
+        image: '/assets/images/event1.jpg',
+        status: 'valid' // valid, used, expired
+      },
+      {
+        id: 'LUXE-987-654',
+        eventId: 2,
+        eventTitle: 'Deep House Sessions',
+        ticketType: 'Ingresso Standard',
+        date: '19 Mai, 2025',
+        time: '22:00 - 05:00',
+        location: 'LUXE Terrace',
+        price: 90,
+        purchaseDate: '11 Mai, 2025',
+        image: '/assets/images/event2.jpg',
+        status: 'valid'
+      }
+    ];
+    
+    setTickets(mockTickets);
+  }, []);
   
   const handleLogout = () => {
     logout();
@@ -44,23 +82,23 @@ const MemberArea = () => {
   const upcomingEvents = [
     {
       id: 1,
-      name: 'DJ Night Exclusive',
-      date: '20 de maio',
-      status: 'Confirmado',
+      name: "DJ Night Exclusive",
+      date: "20 de maio",
+      status: "Confirmado",
       exclusive: true
     },
     {
       id: 2,
-      name: 'Luxe Summer Party',
-      date: '5 de junho',
-      status: 'Reservas abertas',
+      name: "Luxe Summer Party",
+      date: "5 de junho",
+      status: "Reservas abertas",
       exclusive: true
     },
     {
       id: 3,
-      name: 'Electronic Festival',
-      date: '15 de junho',
-      status: 'Reservas abertas',
+      name: "Electronic Festival",
+      date: "15 de junho",
+      status: "Reservas abertas",
       exclusive: false
     }
   ];
@@ -141,18 +179,42 @@ const MemberArea = () => {
               </div>
             </motion.div>
             
-            {/* Botão de logout */}
+            {/* Links da conta */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
+              className="bg-gradient-to-br from-gray-dark to-dark p-8 rounded-xl border border-gray-light/20 mb-8"
             >
-              <button
-                onClick={handleLogout}
-                className="w-full py-3 px-4 bg-gray-dark hover:bg-gray-light/30 text-white rounded-lg transition-colors"
-              >
-                Sair da Conta
-              </button>
+              <h3 className="font-bold text-xl mb-4">Minha Conta</h3>
+              
+              <div className="space-y-3">
+                <Link 
+                  to="/meus-ingressos"
+                  className="flex items-center p-3 rounded-lg hover:bg-gray-light/10 transition-colors"
+                >
+                  <FaTicketAlt className="text-primary mr-3" />
+                  <span>Meus Ingressos</span>
+                </Link>
+                
+                <Link 
+                  to="/eventos"
+                  className="flex items-center p-3 rounded-lg hover:bg-gray-light/10 transition-colors"
+                >
+                  <FaCalendarAlt className="text-primary mr-3" />
+                  <span>Próximos Eventos</span>
+                </Link>
+                
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left flex items-center p-3 rounded-lg hover:bg-gray-light/10 transition-colors"
+                >
+                  <svg className="w-5 h-5 text-primary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  <span>Sair da Conta</span>
+                </button>
+              </div>
             </motion.div>
           </div>
           
@@ -217,6 +279,123 @@ const MemberArea = () => {
           </motion.div>
         </div>
       </div>
+    </motion.div>
+  );
+};
+
+// Componente de cartão de ingresso
+const TicketCard = ({ ticket }) => {
+  const [expanded, setExpanded] = useState(false);
+  
+  // Gera um link para o ingresso (na vida real, seria uma URL exclusiva e segura)
+  const ticketLink = `https://luxe-nightclub.com/verify/${ticket.id}`;
+  
+  return (
+    <motion.div 
+      className="glass-panel overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="flex flex-col md:flex-row">
+        {/* Imagem do evento */}
+        <div className="w-full md:w-1/3 h-48 md:h-auto relative overflow-hidden">
+          <img 
+            src={ticket.image} 
+            alt={ticket.eventTitle} 
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+          <div className="absolute bottom-0 left-0 p-4">
+            <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+              ticket.status === 'valid' 
+                ? 'bg-green-700/70 text-green-200' 
+                : ticket.status === 'used'
+                  ? 'bg-yellow-700/70 text-yellow-200'
+                  : 'bg-red-700/70 text-red-200'
+            }`}>
+              {ticket.status === 'valid' 
+                ? 'Válido' 
+                : ticket.status === 'used'
+                  ? 'Utilizado'
+                  : 'Expirado'}
+            </span>
+          </div>
+        </div>
+        
+        {/* Detalhes do ingresso */}
+        <div className="p-6 md:w-2/3 flex flex-col">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xl font-bold">{ticket.eventTitle}</h3>
+            <span className="text-primary font-bold">
+              #{ticket.id}
+            </span>
+          </div>
+          
+          <span className="inline-block mb-4 text-sm font-medium text-primary">{ticket.ticketType}</span>
+          
+          <div className="space-y-2 mb-4 text-sm text-light/70">
+            <div className="flex items-center">
+              <FaCalendarAlt className="mr-2 text-primary" size={14} />
+              {ticket.date}
+            </div>
+            <div className="flex items-center">
+              <FaRegClock className="mr-2 text-primary" size={14} />
+              {ticket.time}
+            </div>
+            <div className="flex items-center">
+              <FaMapMarkerAlt className="mr-2 text-primary" size={14} />
+              {ticket.location}
+            </div>
+          </div>
+          
+          <div className="mt-auto flex flex-wrap justify-between items-center gap-4">
+            <div className="text-sm text-light/60">
+              Comprado em: {ticket.purchaseDate}
+            </div>
+            
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setExpanded(!expanded)}
+                className="py-2 px-4 bg-white/10 hover:bg-white/20 text-white rounded flex items-center transition-colors"
+              >
+                <FaTicketAlt className="mr-2" />
+                {expanded ? 'Ocultar QR' : 'Mostrar QR'}
+              </button>
+              
+              <button className="py-2 px-4 bg-primary/20 hover:bg-primary/30 text-primary rounded flex items-center transition-colors">
+                <FaDownload className="mr-2" />
+                PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* QR Code expandido */}
+      <motion.div
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ 
+          height: expanded ? 'auto' : 0,
+          opacity: expanded ? 1 : 0
+        }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden bg-black/30"
+      >
+        <div className="p-6 flex flex-col items-center">
+          <div className="p-4 bg-white rounded-lg mb-4">
+            <QRCodeSVG 
+              value={ticketLink}
+              size={180}
+              level="H"
+            />
+          </div>
+          <p className="text-sm text-light/80 max-w-md text-center">
+            Este é o seu ingresso oficial. Apresente o QR code na entrada do evento para validação.
+            Não compartilhe esta imagem com ninguém.
+          </p>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
